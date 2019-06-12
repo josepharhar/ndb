@@ -16,6 +16,15 @@ Ndb.processInfo = function() {
   return Ndb._processInfoPromise;
 };
 
+//Ndb.NetworkRuntimeDispatcher = class {
+//  constructor() {
+//  }
+//
+//  bindingCalled(executionContextId, name, payload) {
+//    console.log('bindingCalled! executionContextId: ' + executionContextId + ', name: ' + name + ', payload: ' + payload);
+//  }
+//};
+
 /**
  * @implements {Common.Runnable}
  */
@@ -37,6 +46,8 @@ Ndb.NdbMain = class extends Common.Object {
     await new Promise(resolve => SDK.initMainConnection(resolve));
     // Create root Main target.
     SDK.targetManager.createTarget('<root>', ls`Root`, SDK.Target.Type.Browser, null);
+
+    SDK.targetManager.createTarget('main', ls`Main`, SDK.Target.Type.Frame, null);
 
     this._repl();
 
@@ -196,6 +207,9 @@ Ndb.NodeProcessManager = class extends Common.Object {
         expression: `process.breakAtStart && process.breakAtStart()`,
         includeCommandLineAPI: true
       });
+    }
+    if (!processInfo.isRepl()) {
+      await Ndb.InjectNetworking(target);
     }
     return target.runtimeAgent().runIfWaitingForDebugger();
 

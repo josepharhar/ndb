@@ -6,6 +6,11 @@
      { "name": "timeline" },
      { "name": "product_registry" },
      { "name": "mobile_throttling" },
+
+     { "name": "network" },
+     { "name": "cookie_table" },
+     { "name": "har_importer" },
+
      { "name": "ndb_ui" }
  ],
   "extends": "shell",
