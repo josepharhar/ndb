@@ -12,6 +12,7 @@
     "ndb": "./ndb.js"
   },
   "scripts": {
+    "hello": "node hello.js",
     "lint": "./node_modules/.bin/eslint .",
     "prepare": "node build.js",
     "test": "npm run lint",
